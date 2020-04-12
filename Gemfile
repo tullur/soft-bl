@@ -22,6 +22,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# Client library for easily using the Cloudinary service
+gem 'cloudinary', '~> 1.13', '>= 1.13.2'
+
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
 
