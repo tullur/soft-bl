@@ -1,0 +1,37 @@
+<div class="page-header">
+  <%= link_to articles_path, class: 'btn btn-default' do %>
+    All Articles
+  <% end %>
+  <%= link_to edit_article_path(@article), class: 'btn btn-primary' do %>
+    Edit
+  <% end %>
+  <h1>Show article</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Title:</dt>
+  <dd><%= @article.title %></dd>
+
+  <dt>Body:</dt>
+  <dd><%= @article.body %></dd>
+
+  <dt>User:</dt>
+  <dd>
+    <%= image_tag url_for(user_avatar(@article.user, 25)), class: "rounded" %>
+    <%= @article.user.first_name %>
+    <%= @article.user.last_name %>
+  </dd>
+
+</dl>
+
+<h2>Comments</h2>
+<div id="comment-section">
+  <%= render @article.comments %>
+  <div class="card my-4">
+    <h5 class="card-header">Leave a Comment:</h5>
+    <div class="card-body">
+      <%= render 'comments/form' %>
+    </div>
+  </div>
+</div>
+</div>
