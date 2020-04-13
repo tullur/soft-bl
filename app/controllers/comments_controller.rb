@@ -18,8 +18,9 @@ class CommentsController < ApplicationController
     # @comment.save
     respond_to do |format|
       if @comment.save
-        format.js { render :create }
-        format.html { redirect_to article_path(@article), notice: 'Comment was successfully created.' }
+        format.js
+        # format.html { binding.pry }
+        # format.html { redirect_to article_path(@article), notice: 'Comment was successfully created.' }
       end
     end
   end
