@@ -92,6 +92,18 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # MailGun
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: 'https://morning-mesa-72599.herokuapp.com' }
+  config.action_mailer.smtp_settings = {
+    authenrication: :plain,
+    address: 'smtp.mailgun.org',
+    port: 587,
+    domain: ENV['MAILGUN_DOMAIN'],
+    user_name: ENV['MAILGUN_USERNAME'],
+    password: ENV['MAILGUN_PASSWORD']
+  }
+
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
   # middleware. The `delay` is used to determine how long to wait after a write
