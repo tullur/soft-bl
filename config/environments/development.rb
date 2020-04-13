@@ -59,6 +59,7 @@ Rails.application.configure do
 
   # MailGun
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: 'https://morning-mesa-72599.herokuapp.com' }
   config.action_mailer.smtp_settings = {
     authenrication: :plain,
     address: 'smtp.mailgun.org',
