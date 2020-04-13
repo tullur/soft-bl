@@ -18,13 +18,8 @@ class CommentsController < ApplicationController
     # @comment.save
     respond_to do |format|
       if @comment.save
+        format.js { render :create }
         format.html { redirect_to article_path(@article), notice: 'Comment was successfully created.' }
-        # format.json { render json: @comment, status: :created, location: @comment }
-        # format.js { render :js => "console.log('#{@comment.to_json}');" }
-        # format.js { render :js => "console.log('Hello, World!!!');" }
-        # format.json { render json: @comment, status: :created, location: @comment }
-      else
-        format.js
       end
     end
   end
