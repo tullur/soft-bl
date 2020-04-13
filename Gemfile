@@ -24,6 +24,8 @@ gem 'jbuilder', '~> 2.7'
 
 # Client library for easily using the Cloudinary service
 gem 'cloudinary', '~> 1.13', '>= 1.13.2'
+# Agnostic pagination in plain ruby
+gem 'pagy', '~> 3.7', '>= 3.7.5'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
@@ -51,6 +53,8 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  # Pry is a runtime developer console 
+  gem 'pry', '~> 0.13.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

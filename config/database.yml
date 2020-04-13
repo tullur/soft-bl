@@ -5,7 +5,7 @@ default: &default
 
 development:
   <<: *default
-  database: SoftBlog_development_master
+  database: SoftBlog_development_master_blog
   username: postgres
   password: root
   host: localhost
