@@ -1,12 +1,13 @@
-<div class="media">
-  <div class="media-body">
+<div class="media mb-4">
     <% if comment.user.avatar.attached? %>
-      <%= image_tag comment.user.avatar.variant(resize: '100x100'), class: "rounded-circle" %>
+      <%= image_tag comment.user.avatar.variant(resize: '100x100'), class: "d-flex mr-3 rounded-circle" %>
     <% end %>
+  <div class="media-body">
 
-    <%# <p class="lead">
-      <strong>Username:</strong>
-      <%= comment.user.username %>
+    <p class="lead">
+      <%= comment.user.first_name %> 
+      <%= comment.user.last_name %>
+    </p>
 
 
     <p class="lead">
@@ -14,13 +15,13 @@
     </p>
     <small>Submitted <%= time_ago_in_words(comment.created_at) %> ago</small>
 
-    <%= form_for [comment, Comment.new], html: { class: "form-group" } do |f| %>
+    <%= form_for [comment, Comment.new], html: { class: "form-group" }, remote: true do |f| %>
         <%= hidden_field_tag "article_id", @article.id %>
         <%= f.text_area :body, placeholder: "Add a Reply", class: "form-control" %><br/>
-        <%= f.submit "Reply", class: "form-control" %>
+        <%= f.submit "Reply", class: "btn btn-primary" %>
         <%= link_to 'Destroy Comment',
           [comment.commentable, comment, article_id: @article.id],
-          data: { method: :delete, remote: true }, class: "form-control",
+          data: { method: :delete}, class: "btn btn-danger",
           data: { confirm: 'Are you sure?' } %>
     <% end %>
 

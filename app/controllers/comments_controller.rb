@@ -1,25 +1,17 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_article
   before_action :find_commentable
-
-  def index
-    @comment = Comment.all
-  end
-
-  def new
-    @comment = Comment.new
-  end
 
   def create
     @comment = @commentable.comments.new(comment_params)
     @comment.user = current_user
-    # @comment.save
     respond_to do |format|
       if @comment.save
         format.js
-        # format.html { binding.pry }
+        # format.html { redirect_to @commentable }
         # format.html { redirect_to article_path(@article), notice: 'Comment was successfully created.' }
       end
     end
@@ -29,10 +21,7 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.find(params[:id])
     @comment.destroy if @comment.user == current_user
 
-    respond_to do |format|
-      format.html { redirect_to article_path(@article) }
-      format.js {}
-    end
+    redirect_to article_path(@article)
   end
 
   private

@@ -1,15 +1,16 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!, except: %i[index]
+  before_action :set_article, only: %i[show edit update destroy]
   # GET /articles
   # GET /articles.json
   def index
-    @pagy, @articles = pagy(Article.search(params[:search]), items: 10)
+    @pagy, @articles = pagy(Article.includes(:user).search(params[:search]), items: 10)
   end
 
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @comments = @article.comments.includes(:comments, :user)
   end
 
   # GET /articles/new
