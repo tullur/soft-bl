@@ -1,2 +1,2 @@
-$("<%= escape_javascript(render(@comment))%>").appendTo('#comment-section');
+$("#comment-section").html('<%= j render(partial: @article.comments) %>')
 $('#comment_body').val("");

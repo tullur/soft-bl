@@ -11,8 +11,6 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         format.js
-        # format.html { redirect_to @commentable }
-        # format.html { redirect_to article_path(@article), notice: 'Comment was successfully created.' }
       end
     end
   end
@@ -20,8 +18,6 @@ class CommentsController < ApplicationController
   def destroy
     @comment = @commentable.comments.find(params[:id])
     @comment.destroy if @comment.user == current_user
-
-    redirect_to article_path(@article)
   end
 
   private

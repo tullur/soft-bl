@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: %i[index]
   before_action :set_article, only: %i[show edit update destroy]
+  before_action :require_same_user, only: %i[edit update destroy]
+
   # GET /articles
   # GET /articles.json
   def index
@@ -10,7 +12,12 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
-    @comments = @article.comments.includes(:comments, :user)
+    # @comments = @article.comments.includes(:comments, :user)
+    @comments = if params[:comment]
+                  @article.comments.where(id: params[:comment])
+                else
+                  @article.comments.where(commentable_id: nil)
+                end
   end
 
   # GET /articles/new
@@ -64,13 +71,21 @@ class ArticlesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_article
-      @article = Article.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def article_params
-      params.require(:article).permit(:title, :body, :user_id)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def article_params
+    params.require(:article).permit(:title, :body, :user_id)
+  end
+
+  def require_same_user
+    if current_user != @article.user
+      flash[:danger] = 'You can only edit or delete your own articles'
+      redirect_to root_path
     end
+  end
 end

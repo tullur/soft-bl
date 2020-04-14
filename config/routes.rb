@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   end
 
   resources :comments do
-    resources :comments
+    resources :comments, only: %i[create destroy]
   end
 
   get '/privacy', to: 'home#privacy'
@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :notifications, only: [:index]
   resources :announcements, only: [:index]
+
   devise_for :users
+
   root to: 'home#index'
 end

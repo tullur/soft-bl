@@ -4,11 +4,13 @@
       <%= link_to articles_path, class: 'btn btn-default' do %>
         All Articles
       <% end %>
-      <%= link_to edit_article_path(@article), class: 'btn btn-primary' do %>
-        Edit
-      <% end %>
-      <%= link_to article_path(@article), method: :delete, data: { confirm: 'Are you sure?' },class: 'btn btn-danger' do %>
-        Delete
+      <% if current_user == @article.user %>
+        <%= link_to edit_article_path(@article), class: 'btn btn-primary' do %>
+          Edit
+        <% end %>
+        <%= link_to article_path(@article), method: :delete, data: { confirm: 'Are you sure?' },class: 'btn btn-danger' do %>
+          Delete
+        <% end %>
       <% end %>
       <h1>Show article</h1>
     </div>
@@ -31,16 +33,17 @@
 
       <hr>
 
-      <div id="comment-section">
+
       <div class="card my-4">
           <h5 class="card-header">Leave a Comment:</h5>
           <div class="card-body">
             <%= render 'comments/form' %>
           </div>
         </div>
-        <h2>Comments</h2>
-        <%= render @article.comments %>
+        <div id="comment-section">
+          <h2>Comments</h2>
+          <%= render @article.comments %>
+        </div>
       </div>
-    </div>
   </div>
 </div>

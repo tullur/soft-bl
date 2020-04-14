@@ -1,4 +1,4 @@
-<div class="media mb-4">
+<div class="media mb-4 comment-wrapper">
     <% if comment.user.avatar.attached? %>
       <%= image_tag comment.user.avatar.variant(resize: '100x100'), class: "d-flex mr-3 rounded-circle" %>
     <% end %>
@@ -19,10 +19,8 @@
         <%= hidden_field_tag "article_id", @article.id %>
         <%= f.text_area :body, placeholder: "Add a Reply", class: "form-control" %><br/>
         <%= f.submit "Reply", class: "btn btn-primary" %>
-        <%= link_to 'Destroy Comment',
-          [comment.commentable, comment, article_id: @article.id],
-          data: { method: :delete}, class: "btn btn-danger",
-          data: { confirm: 'Are you sure?' } %>
+        <%= link_to "Delete", [comment.commentable, comment], remote: true,
+            class: "delete-action btn btn-danger", method: :delete, data: {confirm: "Are you sure?"} if comment.user == current_user %>
     <% end %>
 
     <ul class="nested_messages">
