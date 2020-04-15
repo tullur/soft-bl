@@ -9,9 +9,7 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.new(comment_params)
     @comment.user = current_user
     respond_to do |format|
-      if @comment.save
-        format.js
-      end
+      format.js if @comment.save
     end
   end
 
@@ -27,8 +25,12 @@ class CommentsController < ApplicationController
   end
 
   def find_commentable
-    @commentable = Article.find_by_id(params[:article_id]) if params[:article_id]
-    @commentable = Comment.find_by_id(params[:comment_id]) if params[:comment_id]
+    if params[:article_id]
+      @commentable = Article.find_by_id(params[:article_id])
+    end
+    if params[:comment_id]
+      @commentable = Comment.find_by_id(params[:comment_id])
+    end
   end
 
   def comment_params
